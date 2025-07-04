@@ -1,352 +1,690 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanidhaya Sharma - Software Engineer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <title>Sanidhaya Sharma</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-  
+        /* 3D Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
 
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(118, 75, 162, 0.8)); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+
+        .typing-animation {
+            border-right: 2px solid #667eea;
+            animation: typing 2s infinite;
+        }
+
+        @keyframes typing {
+            0%, 50% { border-color: #667eea; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .experience-item h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .company {
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .project-card h3 {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .skill-item {
+            background: rgba(118, 75, 162, 0.2);
+            color: #764ba2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
+    <canvas id="bg-canvas"></canvas>
+    
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  
-
-  <!-- ======= Hero Section ======= -->
-  <div id="hero" class="hero route bg-image" style="background-image: url(assets/img/hero-bg.jpg)">
-    <div class="overlay-itro"></div>
-    <div class="hero-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <!--<p class="display-6 color-d">Hello, world!</p>-->
-          <h1 class="hero-title mb-4">I'm Sanidhaya Sharma</h1>
-          <p class="hero-subtitle"><span class="typed" data-typed-items="Software Enthusiast,, Developer, Freelancer, Problem Solver"></span></p>
-          <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Sanidhaya Sharma</h1>
+            <p class="subtitle">Software Engineer | <span class="typing-animation" id="typing-text"></span></p>
+            <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #b0b0b0;">
+                Crafting scalable solutions with cloud-native technologies and distributed systems
+            </p>
+            <a href="#contact" class="cta-button">Let's Connect</a>
         </div>
-      </div>
-    </div>
-  </div><!-- End Hero Section -->
+    </section>
 
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about-mf sect-pt4 route">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="box-shadow-full">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="col-md-12">
-                    <div class="col-sm-6 col-md-5">
-                      <div class="about-img">
-                        <img src="assets/img/profile.jpeg" class="img-fluid rounded b-shadow-a" alt="">
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-7">
-                      <div class="about-info">
-                        <p><span class="title-s">Name: </span> <span>Sanidhaya Sharma</span></p>
-                        <p><span class="title-s">Profile: </span> <span>Software Enthusiast</span></p>
-                        <p><span class="title-s">Email: </span> <span>sanidhyas141@gmail.com</span></p>
-                        <p><span class="title-s">Phone: </span> <span>+91 8899286563</span></p>
-                      </div>
-                    </div>
-                  </div> 
-                </div>
-                <div class="col-md-6">
-                  <div class="about-me pt-4 pt-md-0">
-                    <div class="title-box-2">
-                      <h5 class="title-left">
-                        About me
-                      </h5>
-                    </div>
-                    <p class="">Greetings! I'm an enthusiastic BTech CSE student at IIIT Raichur, driven by a passion for technology. With a versatile skill set encompassing web development, app development, and AI/ML, I'm constantly exploring diverse projects to broaden my horizons. My focus lies in harnessing technology to tackle real-world problems and devising innovative solutions. Whether it's leading projects like the IIITR Entry Management System or coordinating initiatives as the CodeSoc Club Coordinator, I thrive in collaborative environments that foster learning and development. Excited about the prospect of embarking on new ventures and making impactful contributions, I'm eager to connect and collaborate with fellow tech enthusiasts. Let's embark on a journey to create something truly remarkable together!
-                    </p>
-                    
-                  </div>
-                </div>
-              </div>
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://via.placeholder.com/400x400/667eea/ffffff?text=Profile" alt="Sanidhaya Sharma">
             </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End About Section -->
-
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="work" class="portfolio-mf sect-pt4 route">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="title-box text-center">
-              <h3 class="title-a">
-                Portfolio
-              </h3>
-              <p class="subtitle-a">
-                Following are the projects developed/contributed
-              </p>
-              <div class="line-mf"></div>
+            <div class="about-text">
+                <p>
+                    I'm a passionate Computer Science undergraduate from IIIT Raichur with hands-on experience in cloud-native backend development, scalable infrastructure, and full-stack application delivery. Currently working as a Software Engineer Intern at Dialpad, where I design resilient architectures and implement fault-tolerant systems.
+                </p>
+                <p>
+                    My expertise spans across Python, Kubernetes, CI/CD, and Google Cloud Platform, with a strong foundation in distributed systems and DevOps practices. I thrive on solving complex technical challenges and building innovative solutions that make a real impact.
+                </p>
+                <p>
+                    <strong>Education:</strong> B.Tech CSE from IIIT Raichur (CGPA: 8.60/10)<br>
+                    <strong>Location:</strong> Jammu, India<br>
+                    <strong>Email:</strong> sanidhyas141@gmail.com
+                </p>
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="work-box">
-              <a href="assets/img/work-1.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                <div class="work-img">
-                  <img src="assets/img/work-1.png" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">IIITR Entry Management System</h2>
-                    <div class="w-more">
-                     <span class="w-date">Mar 2022 - Jun 2022</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="https://github.com/SanidhayaSharma141/IIITR-Management-System"> <span class="bi bi-plus-circle"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    </section>
+
+    <section id="experience" class="fade-in">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <h3>Software Engineer Intern</h3>
+                <p class="company">Dialpad, Bengaluru | Feb 2025 - Present</p>
+                <ul>
+                    <li>Designed and implemented resilient media fallback architecture preventing audio/video drop-offs during GCS outages</li>
+                    <li>Containerized microservices using Kubernetes and Docker for scalable, fault-tolerant deployments</li>
+                    <li>Collaborated with cross-functional teams aligning technical implementation with business requirements</li>
+                    <li>Conducted extensive testing on bare metal servers and Kubernetes pods</li>
+                </ul>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box">
-              <a href="assets/img/work-2.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                <div class="work-img">
-                  <img src="assets/img/work-2.png" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Hustle Stay</h2>
-                    <div class="w-more">
-                       <span class="w-date">Jan 2023 - Aug 2023</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="https://github.com/SanidhayaSharma141/Hustle-Stay"> <span class="bi bi-plus-circle"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
+            <div class="experience-item">
+                <h3>Software Development Engineer Intern</h3>
+                <p class="company">Zarity Health Pvt Ltd, Bengaluru | June 2024 - Feb 2025</p>
+                <ul>
+                    <li>Implemented high-quality video calling using Agora SDK with encrypted P2P communication</li>
+                    <li>Developed secure payment infrastructure via Razorpay integration supporting multiple payment methods</li>
+                    <li>Overhauled user onboarding workflows reducing setup time by 25%</li>
+                    <li>Delivered full-stack digital health record system with structured modules</li>
+                </ul>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box">
-              <a href="assets/img/work-3.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                <div class="work-img">
-                  <img src="assets/img/work-3.png" alt="" class="img-fluid">
+        </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>V2V and V2I Communication Using 802.11p</h3>
+                <p>Research project simulating autonomous vehicle communication using IEEE 802.11p protocol. Analyzed packet loss, delay, and throughput in dynamic scenarios for smart traffic optimization.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NS-3</span>
+                    <span class="tech-tag">Vehicular Networks</span>
                 </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Feedback Hub</h2>
-                    <div class="w-more">
-                       <span class="w-date">Aug 2023 - Dec 2023</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="https://github.com/SanidhayaSharma141/Feedback-Hub"> <span class="bi bi-plus-circle"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box">
-              <a href="assets/img/work-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                <div class="work-img">
-                  <img src="assets/img/work-4.jpg" alt="" class="img-fluid">
+            
+            <div class="project-card">
+                <h3>Naukrified - AI Job Portal</h3>
+                <p>AI-infused job portal with intelligent matching algorithms and personalized recommendations for job seekers and employers.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Flask</span>
                 </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Naukrified - AI infused Job Portal</h2>
-                    <div class="w-more">
-                       <span class="w-date">Jan 2024 - May 2024</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="https://github.com/SanidhayaSharma141/naukrified"> <span class="bi bi-plus-circle"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box">
-              <a href="assets/img/work-5.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                <div class="work-img">
-                  <img src="assets/img/work-5.png" alt="" class="img-fluid">
+            
+            <div class="project-card">
+                <h3>Hustle Stay</h3>
+                <p>Mobile application for hostel management with real-time tracking, issue reporting, and admin approval systems. Improved hostel efficiency significantly.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Flutter</span>
+                    <span class="tech-tag">Dart</span>
+                    <span class="tech-tag">Firebase</span>
                 </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Tic Tac Toe</h2>
-                    <div class="w-more">
-                       <span class="w-date">May 2024</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="https://github.com/SanidhayaSharma141/tictactoe"> <span class="bi bi-plus-circle"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          
-
-        </div>
-      </div>
-     
-    </section><!-- End Portfolio Section -->
-
-<!-- ======= Skills Section ======= -->
-<section id="skills" class="skills-mf sect-pt4 route">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="title-box text-center">
-          <h3 class="title-a">
-            Skills
-          </h3>
-          <div class="line-mf"></div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="skill-box">
-          <div class="icon-box"><i class="bi bi-code-slash"></i></div>
-          <h4 class="title">Languages</h4>
-          <p class="description">
-            - Advanced: C++, Dart<br>
-            - Intermediate: C, Python, HTML, CSS, Kotlin, PHP
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="skill-box">
-          <div class="icon-box"><i class="bi bi-laptop"></i></div>
-          <h4 class="title">Technologies</h4>
-          <p class="description">
-            - Advanced: Flutter, Firebase<br>
-            - Intermediate: Git, Android Studio, MySQL, Flask, NodeJs, MongoDB
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="skill-box">
-          <div class="icon-box"><i class="bi bi-gear"></i></div>
-          <h4 class="title">Others</h4>
-          <p class="description">
-            Data Structures & Algorithms, Natural Language Processing, Machine Learning, Application Development
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section><!-- End Skills Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/hero-bg.jpg)">
-      <div class="overlay-mf"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="contact-mf">
-              <div id="contact" class="box-shadow-full">
-                <div class="row">
-                  
-                  <div class="col-md-6">
-                    <div class="title-box-2 pt-4 pt-md-0">
-                      <h5 class="title-left">
-                        Get in Touch
-                      </h5>
-                    </div>
-                    <div class="more-info">
-                      
-                      <ul class="list-ico">
-                        <li><span class="bi bi-geo-alt"></span> Railway Line Gagian, RS Pura, Jammu, India, 181102  </li>
-                        <li><span class="bi bi-phone"></span> +91 8899 286563 / +91 7892850097</li>
-                        <li><span class="bi bi-envelope"></span> sanidhyas141@gmail.com</li>
-                      </ul>
-                    </div>
-                    <div class="socials">
-                      <ul>
-                        <li><a href="https://github.com/SanidhayaSharma141"><span class="ico-circle"><i class="bi bi-github"></i></span></a></li>
-                        <li><a href="https://www.instagram.com/sanidhaya_sharmaaaa/"><span class="ico-circle"><i class="bi bi-instagram"></i></span></a></li>
-                        <li><a href="https://www.linkedin.com/in/sanidhayasharma141"><span class="ico-circle"><i class="bi bi-linkedin"></i></span></a></li>
-                      </ul>
-                    </div>
-                  </div>
+            
+            <div class="project-card">
+                <h3>IIITR Entry Management System</h3>
+                <p>Web-based system for logging and monitoring student/staff entry. Automated attendance and generated reports, reducing manual workload by 80%.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">HTML/CSS</span>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section><!-- End Contact Section -->
+    </section>
 
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="copyright-box">
-            <p class="copyright">&copy;<strong>Sanidhaya Sharma</strong></p>
-          </div>
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">C++</span>
+                    <span class="skill-item">JavaScript</span>
+                    <span class="skill-item">Kotlin</span>
+                    <span class="skill-item">PHP</span>
+                    <span class="skill-item">C</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Frameworks & Libraries</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Django</span>
+                    <span class="skill-item">Flask</span>
+                    <span class="skill-item">Node.js</span>
+                    <span class="skill-item">Flutter</span>
+                    <span class="skill-item">TensorFlow</span>
+                    <span class="skill-item">Keras</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Cloud & DevOps</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Google Cloud</span>
+                    <span class="skill-item">Kubernetes</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">CI/CD</span>
+                    <span class="skill-item">Terraform</span>
+                    <span class="skill-item">Firebase</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Tools & Databases</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Git</span>
+                    <span class="skill-item">MySQL</span>
+                    <span class="skill-item">Postman</span>
+                    <span class="skill-item">Figma</span>
+                    <span class="skill-item">Android Studio</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer><!-- End  Footer -->
+    </section>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <section id="contact" class="fade-in">
+        <div class="contact">
+            <h2 class="section-title">Let's Connect</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #b0b0b0;">
+                Ready to collaborate on exciting projects or discuss opportunities? Let's build something amazing together!
+            </p>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                📧 sanidhyas141@gmail.com
+            </p>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                📱 +91 8899286563
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/SanidhayaSharma141" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/sanidhayasharma141" target="_blank">LinkedIn</a>
+                <a href="https://leetcode.com/sanidhyas141" target="_blank">LeetCode</a>
+            </div>
+        </div>
+    </section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+    <script>
+        // 3D Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        // Create floating particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        
+        for (let i = 0; i < 1000; i++) {
+            vertices.push(
+                (Math.random() - 0.5) * 2000,
+                (Math.random() - 0.5) * 2000,
+                (Math.random() - 0.5) * 2000
+            );
+        }
+        
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        
+        const material = new THREE.PointsMaterial({
+            color: 0x667eea,
+            size: 2,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+        
+        camera.position.z = 500;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            particles.rotation.x += 0.001;
+            particles.rotation.y += 0.001;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Typing animation
+        const typingTexts = [
+            "Cloud Native Developer",
+            "Backend Engineer", 
+            "DevOps Enthusiast",
+            "Full Stack Developer",
+            "Problem Solver"
+        ];
+        
+        let currentIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+        
+        function typeText() {
+            const fullText = typingTexts[currentIndex];
+            
+            if (isDeleting) {
+                currentText = fullText.substring(0, currentText.length - 1);
+            } else {
+                currentText = fullText.substring(0, currentText.length + 1);
+            }
+            
+            document.getElementById('typing-text').textContent = currentText;
+            
+            let speed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && currentText === fullText) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && currentText === '') {
+                isDeleting = false;
+                currentIndex = (currentIndex + 1) % typingTexts.length;
+                speed = 500;
+            }
+            
+            setTimeout(typeText, speed);
+        }
+        
+        typeText();
+        
+        // Scroll animations
+        function revealElements() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', revealElements);
+        revealElements();
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
-
 </html>
