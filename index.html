@@ -4,21 +4,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sanidhaya Sharma | Software Engineer at Canonical</title>
-  <meta name="description" content="Sanidhaya Sharma is a software engineer on the Platform Engineering team at Canonical. Previously Yext, Dialpad and Zarity Health. Backend systems, ETL pipelines in Go, Java services, media infrastructure and AI tools.">
-  <meta name="keywords" content="Sanidhaya Sharma, Software Engineer, Canonical, Ubuntu, Go, Java, Spring Boot, Kubernetes, React, portfolio">
-  <meta name="theme-color" content="#1b0d1e">
-  <meta property="og:title" content="Sanidhaya Sharma | Software Engineer at Canonical">
-  <meta property="og:description" content="Backend systems, data pipelines and resilient infrastructure. Previously Yext, Dialpad and Zarity Health.">
+  <title>Sanidhaya Sharma | Software Engineer, Platform Engineering at Canonical</title>
+  <meta name="description" content="Sanidhaya Sharma is a software engineer on the Platform Engineering team at Canonical, working in Python and Kubernetes. Previously Yext, Dialpad and Zarity Health. Distributed systems, data pipelines and resilient infrastructure.">
+  <meta name="keywords" content="Sanidhaya Sharma, Software Engineer, Platform Engineering, Canonical, Ubuntu, Python, Kubernetes, Go, Java, distributed systems, portfolio">
+  <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1217" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Sanidhaya Sharma | Platform Engineering at Canonical">
+  <meta property="og:description" content="Distributed systems, data pipelines and resilient infrastructure. Previously Yext, Dialpad and Zarity Health.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sanidhayasharma141.github.io/">
   <meta property="og:image" content="https://sanidhayasharma141.github.io/assets/img/profile.jpeg">
+
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Ubuntu+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu+Sans+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -27,7 +37,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Sanidhaya Sharma",
-    "jobTitle": "Software Engineer",
+    "jobTitle": "Software Engineer, Platform Engineering",
     "worksFor": { "@type": "Organization", "name": "Canonical" },
     "alumniOf": "Indian Institute of Information Technology, Raichur",
     "email": "mailto:sanidhaya24@gmail.com",
@@ -48,21 +58,28 @@
   <header class="site-header" data-header>
     <nav class="nav wrap" aria-label="Primary">
       <a class="brand" href="#top" aria-label="Sanidhaya Sharma, back to top">
-        <span class="brand-mark">ss</span>
+        <span class="brand-mark">SS</span>
         <span class="brand-name">Sanidhaya Sharma</span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" data-nav-toggle>
-        <span></span><span></span><span class="sr-only">Menu</span>
-      </button>
       <ul class="nav-links" id="navLinks" data-nav-links>
+        <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#profiles">Profiles</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a class="nav-resume" href="assets/sanidhaya_sharma_resume.pdf" target="_blank" rel="noreferrer">Resume <i class="bi bi-arrow-up-right"></i></a></li>
+        <li class="mobile-only"><a href="assets/sanidhaya_sharma_resume.pdf" target="_blank" rel="noreferrer">Resume <i class="bi bi-arrow-up-right"></i></a></li>
         <li class="nav-indicator" aria-hidden="true" data-nav-indicator></li>
       </ul>
+      <div class="nav-tools">
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch colour theme">
+          <i class="bi bi-moon-stars"></i><i class="bi bi-sun"></i>
+        </button>
+        <a class="nav-resume" href="assets/sanidhaya_sharma_resume.pdf" target="_blank" rel="noreferrer">Resume <i class="bi bi-arrow-up-right"></i></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" data-nav-toggle>
+          <span></span><span></span><span class="sr-only">Menu</span>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -70,26 +87,43 @@
     <!-- HERO -->
     <section class="hero" id="top">
       <canvas class="hero-graph" data-graph aria-hidden="true"></canvas>
-      <div class="hero-fade" aria-hidden="true"></div>
-      <div class="wrap hero-inner">
-        <p class="now load" style="--d:0">
-          <span class="pulse" aria-hidden="true"></span>
-          Platform engineering at <strong>Canonical</strong>
-        </p>
-        <h1 class="hero-name" aria-label="Sanidhaya Sharma">
-          <span class="line" data-split>Sanidhaya</span>
-          <span class="line" data-split>Sharma</span>
-        </h1>
-        <p class="hero-copy load" style="--d:9">
-          I build platforms and backend systems that stay fast and observable under real production load: Kubernetes tooling in Python at Canonical, ETL pipelines in Go, media infrastructure that survives cloud outages, and the occasional AI tool.
-        </p>
-        <div class="hero-actions load" style="--d:11">
-          <a class="btn btn-primary magnetic" href="#work">See my work</a>
-          <a class="btn btn-ghost magnetic" href="mailto:sanidhaya24@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
-          <div class="hero-social">
-            <a href="https://github.com/SanidhayaSharma141" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="bi bi-github"></i></a>
-            <a href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="https://leetcode.com/u/sanidhayasharma141/" target="_blank" rel="noreferrer" aria-label="LeetCode"><i class="bi bi-code-square"></i></a>
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <a class="now load" style="--d:0" href="#experience">
+            <img class="now-logo" src="assets/img/logos/canonical.svg" alt="" width="26" height="26">
+            <span>Platform Engineering at <strong>Canonical</strong></span>
+          </a>
+          <h1 class="hero-name" aria-label="Sanidhaya Sharma">
+            <span class="line" data-split>Sanidhaya</span>
+            <span class="line" data-split>Sharma</span>
+          </h1>
+          <p class="hero-copy load" style="--d:9">
+            Software engineer building <strong>fault-tolerant platforms and distributed data systems</strong>. Today that means Python and Kubernetes at Canonical. Before that, high-throughput ingestion and Go ETL pipelines at Yext, and real-time media infrastructure at Dialpad.
+          </p>
+          <div class="hero-actions load" style="--d:11">
+            <a class="btn btn-primary magnetic" href="#experience">See my experience</a>
+            <a class="btn btn-ghost magnetic" href="mailto:sanidhaya24@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
+            <div class="hero-social">
+              <a href="https://github.com/SanidhayaSharma141" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="bi bi-github"></i></a>
+              <a href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="https://leetcode.com/u/sanidhayasharma141/" target="_blank" rel="noreferrer" aria-label="LeetCode"><i class="bi bi-code-square"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-photo load" style="--d:5" data-tilt>
+          <div class="photo-card">
+            <div class="photo-frame">
+              <img src="assets/img/profile.jpeg" alt="Portrait of Sanidhaya Sharma" width="1599" height="1599">
+            </div>
+            <div class="photo-chip chip-a">
+              <img src="assets/img/logos/canonical.svg" alt="" width="30" height="30">
+              <span><b>Software Engineer</b><small>Platform Engineering, Canonical</small></span>
+            </div>
+            <div class="photo-chip chip-b">
+              <i class="bi bi-mortarboard"></i>
+              <span><b>B.Tech CSE</b><small>IIIT Raichur, 2025</small></span>
+            </div>
           </div>
         </div>
       </div>
@@ -97,35 +131,37 @@
     </section>
 
     <!-- ABOUT -->
-    <section class="section about" id="about">
+    <section class="section section-alt" id="about">
       <div class="wrap about-grid">
-        <figure class="portrait reveal">
-          <img src="assets/img/profile.jpeg" alt="Portrait of Sanidhaya Sharma" width="1599" height="1599" loading="lazy">
-          <figcaption>Hyderabad, India</figcaption>
-        </figure>
         <div class="about-text">
-          <h2 class="reveal">I like owning a feature from the spec to the pager.</h2>
-          <p class="reveal">I studied Computer Science at IIIT Raichur and have spent the last two years shipping production systems: real-time video and payments at Zarity Health, a media fallback path at Dialpad that kept audio and video running through GCS outages, and data pipelines and enterprise APIs at Yext.</p>
-          <p class="reveal">Since November 2026 I've been on the Platform Engineering team at Canonical, the company behind Ubuntu, working in Python and Kubernetes. Outside work I still reach for Go and Java, and React when a system needs a good interface.</p>
-          <dl class="facts reveal">
-            <div><dt>Education</dt><dd>B.Tech CSE, IIIT Raichur <span>CGPA <b data-count="8.59" data-decimals="2">8.59</b></span></dd></div>
-            <div><dt>Experience</dt><dd><b data-count="4">4</b> engineering roles since 2024</dd></div>
-            <div><dt>Currently</dt><dd>Platform Engineering, Canonical</dd></div>
-          </dl>
+          <h2 class="reveal">Reliable systems, built end to end.</h2>
+          <p class="reveal">I'm a software engineer on the Platform Engineering team at Canonical, the company behind Ubuntu, where I work in Python and Kubernetes on the internal platforms other engineering teams build on.</p>
+          <p class="reveal">At Yext I worked on the high-throughput, distributed ingestion workflows that feed the Yext Knowledge Graph: fault-tolerant data onboarding, low-latency ETL pipelines in Go, scalable microservices, and the developer tooling and automation that kept quality high across teams. Before that I built a media fallback path at Dialpad that kept calls running through cloud outages, and shipped video, payments and onboarding work at Zarity Health.</p>
+          <p class="reveal muted">My interests sit around distributed systems, cloud infrastructure and data pipelines. I care most about systems that stay scalable, observable and efficient when real traffic hits them, and I like owning a feature from the spec to production.</p>
         </div>
+        <aside class="card glance reveal" aria-label="At a glance">
+          <h3>At a glance</h3>
+          <dl>
+            <div><dt>Role</dt><dd>Software Engineer<span>Platform Engineering, Canonical</span></dd></div>
+            <div><dt>Based in</dt><dd>Hyderabad, India<span>Open to remote and hybrid</span></dd></div>
+            <div><dt>Education</dt><dd>B.Tech CSE, IIIT Raichur<span>CGPA <b data-count="8.59" data-decimals="2">8.59</b> / 10</span></dd></div>
+            <div><dt>Experience</dt><dd><b data-count="4">4</b> engineering roles<span>Canonical, Yext, Dialpad, Zarity</span></dd></div>
+            <div><dt>Community</dt><dd>Mentored <b data-count="100" data-suffix="+">100+</b> students<span>CodeSoc and GDSC, IIIT Raichur</span></dd></div>
+          </dl>
+        </aside>
       </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section class="section experience" id="experience">
+    <section class="section" id="experience">
       <div class="wrap">
         <header class="section-head reveal">
           <h2>Experience</h2>
-          <p>Four teams, from health-tech to open source.</p>
+          <p>From health-tech and real-time media to data infrastructure and open source.</p>
         </header>
 
         <ol class="timeline" data-timeline>
-          <span class="timeline-rail" aria-hidden="true"><span data-timeline-fill></span></span>
+          <li class="timeline-rail" aria-hidden="true"><span data-timeline-fill></span></li>
 
           <li class="job job-current reveal">
             <div class="job-when">
@@ -133,63 +169,69 @@
               <span class="job-place">Remote, India</span>
             </div>
             <span class="job-node" aria-hidden="true"></span>
-            <div class="job-body">
+            <div class="card job-body">
               <div class="job-title">
-                <img class="logo logo-canonical" src="assets/img/logos/canonical.svg" alt="Canonical logo" width="44" height="44" loading="lazy">
+                <img class="logo logo-canonical" src="assets/img/logos/canonical.svg" alt="Canonical logo" width="48" height="48" loading="lazy">
                 <div>
                   <h3>Software Engineer, Platform Engineering</h3>
                   <p class="job-co">Canonical <span class="tag-now">Current</span></p>
                 </div>
               </div>
-              <p>Building internal platform tooling on the Platform Engineering team at Canonical, the company behind Ubuntu, working mostly in Python and Kubernetes.</p>
-              <p class="stack">Python, Kubernetes, Ubuntu, platform engineering</p>
+              <p class="job-summary">Building and running internal platform tooling on the Platform Engineering team at Canonical, the company behind Ubuntu.</p>
+              <ul class="chips"><li>Python</li><li>Kubernetes</li><li>Ubuntu</li><li>Platform engineering</li></ul>
             </div>
           </li>
 
           <li class="job reveal">
             <div class="job-when">
               <span class="job-dates">Aug 2025 to Nov 2026</span>
-              <span class="job-place">Hyderabad</span>
+              <span class="job-place">Hyderabad, hybrid</span>
+              <span class="job-length">1 yr 4 mos</span>
             </div>
             <span class="job-node" aria-hidden="true"></span>
-            <div class="job-body">
+            <div class="card job-body">
               <div class="job-title">
-                <img class="logo" src="assets/img/logos/yext.png" alt="" width="44" height="44" loading="lazy">
+                <img class="logo" src="assets/img/logos/yext.png" alt="Yext logo" width="48" height="48" loading="lazy">
                 <div>
                   <h3>Software Engineer II</h3>
                   <p class="job-co">Yext</p>
                 </div>
               </div>
+              <p class="job-summary">Data ingestion and integration for the Yext Knowledge Graph, plus the APIs and interfaces enterprise customers use to sync their data.</p>
               <ul>
-                <li>Built low-latency ETL pipelines in Go, improving data correctness, throughput and end-to-end telemetry.</li>
+                <li>Built high-throughput, distributed data ingestion workflows with fault-tolerant data onboarding.</li>
+                <li>Led low-latency ETL pipelines in Go, improving data correctness, throughput, observability and telemetry.</li>
                 <li>Optimised Java and Spring Boot REST APIs to speed up data sync and cut response times for enterprise clients.</li>
+                <li>Created automation frameworks that removed bottlenecks and kept quality checks running across engineering teams.</li>
                 <li>Rebuilt static data views as modular React and TypeScript components with faster page loads.</li>
-                <li>Took core features from technical spec through production deployment as resilient microservices.</li>
               </ul>
-              <p class="stack">Go, Java, Spring Boot, React, TypeScript, ETL</p>
+              <ul class="chips"><li>Go</li><li>Java</li><li>Spring Boot</li><li>React</li><li>TypeScript</li><li>AWS</li><li>Jenkins</li><li>ETL</li></ul>
             </div>
           </li>
 
           <li class="job reveal">
             <div class="job-when">
               <span class="job-dates">Feb 2025 to Aug 2025</span>
-              <span class="job-place">Bengaluru</span>
+              <span class="job-place">Bengaluru, on-site</span>
+              <span class="job-length">7 mos, internship</span>
             </div>
             <span class="job-node" aria-hidden="true"></span>
-            <div class="job-body">
+            <div class="card job-body">
               <div class="job-title">
-                <img class="logo logo-wide" src="assets/img/logos/dialpad.png" alt="" width="88" height="44" loading="lazy">
+                <img class="logo logo-wide" src="assets/img/logos/dialpad.png" alt="Dialpad logo" width="84" height="48" loading="lazy">
                 <div>
                   <h3>Software Engineer Intern</h3>
                   <p class="job-co">Dialpad</p>
                 </div>
               </div>
+              <p class="job-summary">Media delivery for real-time calls, with a focus on staying up when cloud infrastructure doesn't.</p>
               <ul>
-                <li>Designed a high-availability media fallback that kept real-time audio and video running during GCS outages.</li>
-                <li>Containerised media delivery services with Docker and Kubernetes for elasticity and fault recovery.</li>
-                <li>Ran load, stress and profiling work on bare metal and containers to meet strict latency SLOs.</li>
+                <li>Designed a high-availability fallback that kept real-time audio and video running during GCS outages.</li>
+                <li>Containerised and orchestrated media delivery microservices with Docker and Kubernetes on GKE for faster fault recovery.</li>
+                <li>Ran load, stress and profiling work on bare metal and containers to meet strict low-latency SLOs.</li>
+                <li>Worked with system architects and product to balance low-level media services against UX performance.</li>
               </ul>
-              <p class="stack">Docker, Kubernetes, GCS, media pipelines, load testing</p>
+              <ul class="chips"><li>Kubernetes</li><li>GKE</li><li>Docker</li><li>Multithreading</li><li>GCS</li><li>Load testing</li></ul>
             </div>
           </li>
 
@@ -197,22 +239,24 @@
             <div class="job-when">
               <span class="job-dates">Jun 2024 to Feb 2025</span>
               <span class="job-place">Bengaluru</span>
+              <span class="job-length">9 mos, internship</span>
             </div>
             <span class="job-node" aria-hidden="true"></span>
-            <div class="job-body">
+            <div class="card job-body">
               <div class="job-title">
-                <img class="logo" src="assets/img/logos/zarity.png" alt="" width="44" height="44" loading="lazy">
+                <img class="logo" src="assets/img/logos/zarity.png" alt="Zarity logo" width="48" height="48" loading="lazy">
                 <div>
                   <h3>Software Development Engineer Intern</h3>
                   <p class="job-co">Zarity Health</p>
                 </div>
               </div>
+              <p class="job-summary">Core product infrastructure for a digital health app: calls, payments, onboarding and health records.</p>
               <ul>
                 <li>Shipped encrypted real-time video calls and reduced connection dropouts by <b>20%</b>.</li>
                 <li>Rebuilt checkout around a modular payment integration, removing race conditions and raising payment success by <b>30%</b>.</li>
-                <li>Re-engineered onboarding and health records, cutting user initialisation latency by <b>25%</b>.</li>
+                <li>Re-engineered onboarding and digital health records, cutting user initialisation latency by <b>25%</b> through better indexes and queries.</li>
               </ul>
-              <p class="stack">Real-time video, payments, databases, performance</p>
+              <ul class="chips"><li>Flutter</li><li>Dart</li><li>Real-time video</li><li>Payments</li><li>Databases</li></ul>
             </div>
           </li>
         </ol>
@@ -220,14 +264,14 @@
     </section>
 
     <!-- WORK -->
-    <section class="section work" id="work">
+    <section class="section section-alt" id="work">
       <div class="wrap">
         <header class="section-head reveal">
           <h2>Selected work</h2>
           <p>Side projects, mostly built to scratch an itch.</p>
         </header>
 
-        <article class="feature reveal" data-spotlight>
+        <article class="card feature reveal" data-spotlight>
           <div class="feature-visual devtldr-visual" aria-hidden="true">
             <div class="doc">
               <span class="doc-line w80"></span><span class="doc-line w60"></span><span class="doc-line w90"></span>
@@ -244,8 +288,13 @@
           <div class="feature-text">
             <p class="kind">AI resume screening</p>
             <h3>DevTLDR</h3>
-            <p>Upload a PDF or DOCX resume and a job description. DevTLDR parses the resume, scores role fit against the requirements and returns strengths, risks and interview questions to ask.</p>
-            <p class="stack">React, Tailwind CSS, Gemini API</p>
+            <p>Upload a resume and a job description, and DevTLDR tells you how well the candidate fits and what to ask them.</p>
+            <ul>
+              <li>Parses PDF and DOCX resumes and extracts technical signals from raw text.</li>
+              <li>Scores role fit against the job's requirements.</li>
+              <li>Returns structured strengths, risks and interview probes.</li>
+            </ul>
+            <ul class="chips"><li>React</li><li>Tailwind CSS</li><li>Gemini API</li></ul>
             <div class="links">
               <a class="btn btn-primary btn-sm" href="https://dev-tldr-xjzy.vercel.app/" target="_blank" rel="noreferrer">Try it live</a>
               <a class="btn btn-ghost btn-sm" href="https://github.com/SanidhayaSharma141/DevTLDR" target="_blank" rel="noreferrer"><i class="bi bi-github"></i> Source</a>
@@ -253,15 +302,20 @@
           </div>
         </article>
 
-        <article class="feature feature-flip reveal" data-spotlight>
+        <article class="card feature feature-flip reveal" data-spotlight>
           <a class="feature-visual feature-photo" href="https://github.com/SanidhayaSharma141/naukrified" target="_blank" rel="noreferrer" tabindex="-1" aria-hidden="true">
             <img src="assets/img/work-4.jpg" alt="" loading="lazy" width="1032" height="587">
           </a>
           <div class="feature-text">
             <p class="kind">Recruitment platform</p>
             <h3>Naukrified</h3>
-            <p>A job platform that recommends roles from market data. Decoupled Flask services share session state through Firestore, and a TF-IDF and cosine-similarity pipeline matches people to openings.</p>
-            <p class="stack">Python, Flask, Firebase Firestore, NLP</p>
+            <p>A job platform that recommends roles from live market data.</p>
+            <ul>
+              <li>Decoupled Flask and Python services, with Firestore for session validation and shared state.</li>
+              <li>Automated pipelines that extract market trends from job data.</li>
+              <li>Recommendations built on TF-IDF, cosine similarity and NLP tokens.</li>
+            </ul>
+            <ul class="chips"><li>Python</li><li>Flask</li><li>Firebase</li><li>NLP</li></ul>
             <div class="links">
               <a class="btn btn-ghost btn-sm" href="https://github.com/SanidhayaSharma141/naukrified" target="_blank" rel="noreferrer"><i class="bi bi-github"></i> Source</a>
             </div>
@@ -270,15 +324,15 @@
 
         <h3 class="more-title reveal">More on GitHub</h3>
         <div class="minis">
-          <a class="mini reveal" href="https://github.com/SanidhayaSharma141/Hustle-Stay" target="_blank" rel="noreferrer" data-spotlight>
+          <a class="card mini reveal" href="https://github.com/SanidhayaSharma141/Hustle-Stay" target="_blank" rel="noreferrer" data-spotlight>
             <span class="mini-img"><img src="assets/img/work-2.png" alt="" loading="lazy" width="1130" height="487"></span>
             <span class="mini-text">
               <strong>Hustle Stay</strong>
-              <span>Hostel and accommodation management app built in Flutter.</span>
-              <em>Dart</em>
+              <span>Hostel and accommodation management app built with Flutter and Firebase.</span>
+              <em>Dart, Firebase</em>
             </span>
           </a>
-          <a class="mini reveal" href="https://github.com/SanidhayaSharma141/IIITR-Management-System" target="_blank" rel="noreferrer" data-spotlight>
+          <a class="card mini reveal" href="https://github.com/SanidhayaSharma141/IIITR-Management-System" target="_blank" rel="noreferrer" data-spotlight>
             <span class="mini-img"><img src="assets/img/work-1.png" alt="" loading="lazy" width="885" height="537"></span>
             <span class="mini-text">
               <strong>IIITR Management System</strong>
@@ -286,7 +340,7 @@
               <em>PHP, MySQL</em>
             </span>
           </a>
-          <a class="mini reveal" href="https://github.com/SanidhayaSharma141/Feedback-Hub" target="_blank" rel="noreferrer" data-spotlight>
+          <a class="card mini reveal" href="https://github.com/SanidhayaSharma141/Feedback-Hub" target="_blank" rel="noreferrer" data-spotlight>
             <span class="mini-img"><img src="assets/img/work-3.png" alt="" loading="lazy" width="2000" height="1047"></span>
             <span class="mini-text">
               <strong>Feedback Hub</strong>
@@ -299,7 +353,7 @@
     </section>
 
     <!-- PROFILES (live) -->
-    <section class="section profiles" id="profiles">
+    <section class="section" id="profiles">
       <div class="wrap">
         <header class="section-head reveal">
           <h2>Live from my profiles</h2>
@@ -307,7 +361,7 @@
         </header>
 
         <div class="profile-grid">
-          <article class="panel panel-gh reveal" data-gh>
+          <article class="card panel panel-gh reveal" data-gh>
             <header class="panel-head">
               <i class="bi bi-github"></i>
               <div>
@@ -337,11 +391,11 @@
             </ul>
 
             <figure class="contrib" data-contrib>
-              <img src="https://ghchart.rshah.org/ff9f5a/SanidhayaSharma141" alt="GitHub contribution chart for the last year" loading="lazy">
+              <img src="https://ghchart.rshah.org/2f5bea/SanidhayaSharma141" alt="GitHub contribution chart for the last year" loading="lazy">
             </figure>
           </article>
 
-          <article class="panel panel-lc reveal" data-lc>
+          <article class="card panel panel-lc reveal" data-lc>
             <header class="panel-head">
               <i class="bi bi-code-square"></i>
               <div>
@@ -373,11 +427,11 @@
             <p class="lc-fallback" data-lc-fallback hidden>LeetCode didn't answer just now. <a href="https://leetcode.com/u/sanidhayasharma141/" target="_blank" rel="noreferrer">See the full profile on LeetCode</a>.</p>
           </article>
 
-          <a class="panel panel-li reveal" href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer">
+          <a class="card panel panel-li reveal" href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer">
             <i class="bi bi-linkedin"></i>
             <span>
               <strong>LinkedIn</strong>
-              <span>Career updates, recommendations and the full work history.</span>
+              <span>3,800+ followers and 500+ connections. Career updates and recommendations live here.</span>
             </span>
             <span class="btn btn-ghost btn-sm">Connect on LinkedIn</span>
           </a>
@@ -386,32 +440,95 @@
     </section>
 
     <!-- SKILLS -->
-    <section class="section skills" id="skills">
+    <section class="section section-alt" id="skills">
       <div class="wrap">
         <header class="section-head reveal">
-          <h2>Toolbox</h2>
-          <p>What I reach for, roughly in order of how often.</p>
+          <h2>Skills</h2>
+          <p>The tools I use day to day, and the ones I've shipped production work with.</p>
         </header>
-        <dl class="toolbox">
-          <div class="reveal"><dt>Languages</dt><dd><span>Go</span> <span>Java</span> <span>Python</span> <span>C++</span> <span>JavaScript</span> <span>TypeScript</span> <span>SQL</span> <span>Kotlin</span> <span>Dart</span> <span>C</span> <span>PHP</span></dd></div>
-          <div class="reveal"><dt>Backend</dt><dd><span>Spring Boot</span> <span>Node.js</span> <span>Express</span> <span>Django</span> <span>Sanic</span> <span>REST</span> <span>Microservices</span> <span>JWT</span> <span>Socket.io</span></dd></div>
-          <div class="reveal"><dt>Infrastructure</dt><dd><span>Linux</span> <span>Kubernetes</span> <span>Docker</span> <span>Terraform</span> <span>GCP</span> <span>AWS</span> <span>Azure</span> <span>ArgoCD</span> <span>Argo Workflows</span> <span>GitHub Actions</span> <span>Jenkins</span> <span>Grafana</span></dd></div>
-          <div class="reveal"><dt>Data</dt><dd><span>PostgreSQL</span> <span>MySQL</span> <span>MongoDB</span> <span>ETL pipelines</span></dd></div>
-          <div class="reveal"><dt>Frontend</dt><dd><span>React</span> <span>Angular</span> <span>Vue</span> <span>Flutter</span> <span>HTML and CSS</span></dd></div>
-          <div class="reveal"><dt>ML and AI</dt><dd><span>RAG</span> <span>Vertex AI</span> <span>Gemini API</span> <span>TensorFlow</span> <span>scikit-learn</span> <span>OpenCV</span> <span>Pandas</span></dd></div>
-        </dl>
+        <div class="skill-grid">
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-code-slash"></i><h3>Languages</h3></div>
+            <div class="chips"><span>Python</span><span>Go</span><span>Java</span><span>C++</span><span>TypeScript</span><span>JavaScript</span><span>SQL</span><span>Kotlin</span><span>Dart</span><span>C</span><span>PHP</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-hdd-network"></i><h3>Platform and cloud</h3></div>
+            <div class="chips"><span>Kubernetes</span><span>Docker</span><span>Linux</span><span>Terraform</span><span>AWS</span><span>GCP</span><span>GKE</span><span>Azure</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-arrow-repeat"></i><h3>CI/CD and observability</h3></div>
+            <div class="chips"><span>ArgoCD</span><span>Argo Workflows</span><span>GitHub Actions</span><span>Jenkins</span><span>Grafana</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-diagram-3"></i><h3>Backend</h3></div>
+            <div class="chips"><span>Spring Boot</span><span>Node.js</span><span>Express</span><span>Django</span><span>Flask</span><span>Sanic</span><span>REST APIs</span><span>Microservices</span><span>JWT</span><span>Socket.io</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-database"></i><h3>Data</h3></div>
+            <div class="chips"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Firebase</span><span>ETL pipelines</span><span>Distributed systems</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-window"></i><h3>Frontend and mobile</h3></div>
+            <div class="chips"><span>React</span><span>Angular</span><span>Vue</span><span>Flutter</span><span>Jetpack Compose</span><span>HTML and CSS</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-stars"></i><h3>ML and AI</h3></div>
+            <div class="chips"><span>RAG</span><span>Vertex AI</span><span>Gemini API</span><span>TensorFlow</span><span>scikit-learn</span><span>OpenCV</span><span>Pandas</span><span>NumPy</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-cpu"></i><h3>CS fundamentals</h3></div>
+            <div class="chips"><span>Data structures and algorithms</span><span>Operating systems</span><span>Computer networks</span><span>DBMS</span><span>OOP</span><span>Multithreading</span></div>
+          </div>
+          <div class="card skill reveal">
+            <div class="skill-head"><i class="bi bi-people"></i><h3>Working style</h3></div>
+            <div class="chips"><span>Spec to production ownership</span><span>Cross-team collaboration</span><span>Mentoring</span><span>Problem solving</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION, COMMUNITY, CERTIFICATIONS -->
+    <section class="section" id="education">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <h2>Education and community</h2>
+          <p>Where I studied, and what I ran alongside the degree.</p>
+        </header>
+        <div class="edu-grid">
+          <article class="card edu-card reveal">
+            <h3>Indian Institute of Information Technology, Raichur</h3>
+            <p class="meta">B.Tech, Computer Science and Engineering. Nov 2021 to May 2025</p>
+            <div class="cgpa"><b data-count="8.59" data-decimals="2">8.59</b><span>CGPA out of 10</span></div>
+            <h4 class="edu-sub">Certifications</h4>
+            <ul>
+              <li><i class="bi bi-cloud"></i><span>Cloud Computing<small>SWAYAM (MHRD), Nov 2024</small></span></li>
+              <li><i class="bi bi-phone"></i><span><a class="inline-link" href="https://www.udemy.com/certificate/UC-a26f0a80-ad24-47e1-8df4-3bd7018520fe/" target="_blank" rel="noreferrer">Flutter and Dart with Firebase</a><small>Udemy, Jun 2023</small></span></li>
+            </ul>
+          </article>
+          <article class="card edu-card reveal">
+            <h3>Leadership</h3>
+            <p class="meta">Student communities at IIIT Raichur</p>
+            <ul>
+              <li><i class="bi bi-terminal"></i><span>CodeSoc Club Coordinator<small>Oct 2022 to Nov 2023. Ran coding guidance for 100+ students, plus regular hackathons and coding events, and led the app and full-stack development tracks.</small></span></li>
+              <li><i class="bi bi-google"></i><span>App Dev Lead, GDSC IIIT Raichur<small>Aug 2022 to Sep 2023. Ran 5+ workshops mentoring 100+ students, organised a 6-week Android development programme, and hosted a Compose Camp on modern Android UI.</small></span></li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section class="section contact" id="contact">
-      <div class="wrap contact-inner">
-        <h2 class="reveal">Building something that has to stay up? Let's talk.</h2>
-        <a class="big-mail reveal" href="mailto:sanidhaya24@gmail.com">sanidhaya24@gmail.com</a>
-        <div class="contact-actions reveal">
-          <a class="btn btn-primary magnetic" href="mailto:sanidhaya24@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
-          <a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-          <a class="btn btn-ghost magnetic" href="assets/sanidhaya_sharma_resume.pdf" target="_blank" rel="noreferrer"><i class="bi bi-file-earmark-text"></i> Resume</a>
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <h2>Building something that has to stay up? Let's talk.</h2>
+          <p>I'm happy to talk about platform engineering, distributed systems, data pipelines, or anything you're building.</p>
+          <a class="big-mail" href="mailto:sanidhaya24@gmail.com">sanidhaya24@gmail.com</a>
+          <div class="contact-actions">
+            <a class="btn btn-primary magnetic" href="mailto:sanidhaya24@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
+            <a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/sanidhayasharma141/" target="_blank" rel="noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
+            <a class="btn btn-ghost magnetic" href="assets/sanidhaya_sharma_resume.pdf" target="_blank" rel="noreferrer"><i class="bi bi-file-earmark-text"></i> Resume</a>
+          </div>
         </div>
       </div>
     </section>

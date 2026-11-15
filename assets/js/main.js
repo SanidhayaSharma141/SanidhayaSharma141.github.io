@@ -131,13 +131,14 @@
   /* Counters                                                            */
   /* ------------------------------------------------------------------ */
   function animateCount(el, to, decimals = 0, from = 0) {
-    if (reduceMotion) { el.textContent = Number(to).toFixed(decimals); return; }
+    const suffix = el.dataset.suffix || "";
+    if (reduceMotion) { el.textContent = Number(to).toFixed(decimals) + suffix; return; }
     const dur = 1400;
     const t0 = performance.now();
     const step = (now) => {
       const k = Math.min(1, (now - t0) / dur);
       const e = 1 - Math.pow(1 - k, 4);
-      el.textContent = (from + (to - from) * e).toFixed(decimals);
+      el.textContent = (from + (to - from) * e).toFixed(decimals) + suffix;
       if (k < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -207,6 +208,38 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Theme toggle                                                        */
+  /* ------------------------------------------------------------------ */
+  const themeBtn = $("[data-theme-toggle]");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) { /* storage unavailable */ }
+      document.dispatchEvent(new CustomEvent("themechange"));
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Hero photo: gentle 3D tilt toward the cursor                        */
+  /* ------------------------------------------------------------------ */
+  const tilt = $("[data-tilt]");
+  if (tilt && finePointer && !reduceMotion) {
+    const card = $(".photo-card", tilt);
+    tilt.addEventListener("pointermove", (e) => {
+      const r = tilt.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.setProperty("--ry", `${px * 10}deg`);
+      card.style.setProperty("--rx", `${-py * 10}deg`);
+    });
+    tilt.addEventListener("pointerleave", () => {
+      card.style.setProperty("--ry", "0deg");
+      card.style.setProperty("--rx", "0deg");
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Hero: a living service graph of the stack                          */
   /* ------------------------------------------------------------------ */
   (function graph() {
@@ -215,17 +248,23 @@
     const ctx = canvas.getContext("2d");
     const hero = canvas.parentElement;
 
-    const LABELS = ["Go", "Java", "Spring Boot", "Kubernetes", "Docker", "React", "TypeScript", "PostgreSQL",
-      "Python", "Terraform", "GCP", "AWS", "Linux", "ETL", "REST", "Grafana", "ArgoCD", "Gemini"];
-    const C = {
-      edge: "rgba(201, 182, 210, 0.13)",
-      edgeHot: "rgba(255, 159, 90, 0.55)",
-      node: "#c9b6d2",
-      label: "rgba(245, 238, 247, 0.72)",
-      labelHot: "#ffffff",
-      apricot: "255, 159, 90",
-      seafoam: "111, 211, 190"
-    };
+    const LABELS = ["Python", "Kubernetes", "Go", "Linux", "Docker", "Java", "Terraform", "PostgreSQL",
+      "GCP", "AWS", "ArgoCD", "Grafana", "ETL", "React", "REST", "Spring Boot", "TypeScript", "Gemini"];
+    const C = {};
+    function readColors() {
+      const cs = getComputedStyle(document.documentElement);
+      const v = (n) => cs.getPropertyValue(n).trim();
+      C.edge = v("--graph-edge");
+      C.node = v("--graph-node");
+      C.label = v("--graph-label");
+      C.labelHot = v("--ink");
+      C.bg = v("--bg");
+      C.apricot = v("--graph-packet");
+      C.seafoam = v("--graph-packet-2");
+      C.edgeHot = `rgba(${C.apricot}, 0.5)`;
+    }
+    readColors();
+    document.addEventListener("themechange", () => { readColors(); if (reduceMotion) step(performance.now()); });
 
     let W = 0, H = 0, dpr = 1, nodes = [], edges = [], adj = [], packets = [];
     let mouse = { x: -9999, y: -9999, active: false };
@@ -242,35 +281,34 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const mobile = W < 960;
-      const heroTop = rect.top;
-      const nameEl = $(".hero-name .line");
-      const nowEl = $(".hero .now");
-      let area, dotArea;
+      // keep labelled nodes out of the text block and the photo
+      const pad = 26;
+      const blockers = [".hero-text", ".photo-card"].map((sel) => $(sel, hero)).filter(Boolean).map((el) => {
+        const r = el.getBoundingClientRect();
+        // labels draw to the right of their node, so reserve room for them on the left edge
+        return { x0: r.left - rect.left - pad - 110, y0: r.top - rect.top - pad, x1: r.right - rect.left + pad, y1: r.bottom - rect.top + pad };
+      });
+      const free = (x, y) => blockers.every((b) => x < b.x0 || x > b.x1 || y < b.y0 || y > b.y1);
+      const area = { x0: 0.02 * W, x1: W - 100, y0: 70, y1: H - 40 };
+      const dotArea = { x0: 0, x1: W, y0: 60, y1: H };
       if (mobile) {
-        // labels live in the band above the hero text
-        const textTop = nowEl ? nowEl.getBoundingClientRect().top - heroTop : 0.45 * H;
-        const y1 = Math.max(0.22 * H, textTop - 28);
-        area = { x0: 0.06 * W, x1: 0.8 * W, y0: Math.min(0.1 * H, y1 - 120), y1 };
-        dotArea = { x0: 0, x1: W, y0: 0.06 * H, y1: 0.9 * H };
-      } else {
-        // labels sit to the right of the name; loose dots can drift behind it
-        const nameRight = nameEl ? nameEl.getBoundingClientRect().right - rect.left : 0.55 * W;
-        const x0 = Math.min(Math.max(0.5 * W, nameRight + 56), W - 380);
-        area = { x0, x1: W - 90, y0: 0.14 * H, y1: 0.88 * H };
-        dotArea = { x0: 0.42 * W, x1: 0.99 * W, y0: 0.08 * H, y1: 0.94 * H };
+        // on phones keep the whole graph above the text so packets never cross the copy
+        const tEl = $(".hero-text", hero);
+        const top = tEl ? tEl.getBoundingClientRect().top - rect.top - 16 : H * 0.45;
+        dotArea.y1 = Math.max(160, top);
+        area.y1 = dotArea.y1;
       }
-      const room = (area.x1 - area.x0) * (area.y1 - area.y0);
-      const minDist = mobile ? 50 : 70;
-      const labelCount = Math.min(LABELS.length, Math.max(5, Math.floor(room / (minDist * minDist * 1.6))));
-      const dotCount = mobile ? 16 : 28;
-
+      const minDist = mobile ? 52 : 70;
+      const labelCount = mobile ? 5 : 10;
+      const dotCount = mobile ? 14 : 24;
       nodes = [];
       const place = (labelled, label) => {
         const box = labelled ? area : dotArea;
-        for (let tries = 0; tries < 60; tries++) {
+        for (let tries = 0; tries < 200; tries++) {
           const x = rand(box.x0, box.x1);
           const y = rand(box.y0, box.y1);
           const md = labelled ? minDist : minDist * 0.55;
+          if (labelled && !free(x, y)) continue;
           if (nodes.every((n) => Math.hypot(n.hx - x, n.hy - y) > md)) {
             nodes.push({
               hx: x, hy: y, x, y, ox: 0, oy: 0,
@@ -391,7 +429,7 @@
 
       // nodes + labels
       const mobile = W < 960;
-      ctx.font = `500 ${mobile ? 11 : 13}px "Ubuntu Sans Mono", "DejaVu Sans Mono", monospace`;
+      ctx.font = `500 ${mobile ? 11 : 12}px "Geist Mono", ui-monospace, monospace`;
       ctx.textBaseline = "middle";
       nodes.forEach((n, i) => {
         const k = Math.min(1, Math.max(0, (age - n.born) / 600));
@@ -399,7 +437,7 @@
         const s = 1 - Math.pow(1 - k, 3);
         const hot = i === hover;
         if (n.labelled) {
-          ctx.fillStyle = "#1b0d1e";
+          ctx.fillStyle = C.bg;
           ctx.strokeStyle = hot ? `rgb(${C.apricot})` : C.node;
           ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.arc(n.x, n.y, (hot ? 6.5 : n.r) * s, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
@@ -412,8 +450,10 @@
           ctx.fillText(n.label, n.x + 11, n.y - 1);
           ctx.globalAlpha = 1;
         } else {
-          ctx.fillStyle = `rgba(201, 182, 210, ${0.45 * s})`;
+          ctx.globalAlpha = 0.7 * s;
+          ctx.fillStyle = C.node;
           ctx.beginPath(); ctx.arc(n.x, n.y, n.r * s, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = 1;
         }
       });
 
@@ -424,6 +464,7 @@
     function stop() { running = false; cancelAnimationFrame(raf); }
 
     build();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); });
     if (reduceMotion) {
       t0 = performance.now() - 10000;
       step(performance.now());
